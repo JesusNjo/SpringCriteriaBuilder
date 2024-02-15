@@ -1,4 +1,4 @@
-package Criteria.CriteriaTal.controller.querys;
+package Criteria.CriteriaTal.controller.querys.clientQueryHandler;
 
 import Criteria.CriteriaTal.models.Client;
 import Criteria.CriteriaTal.models.criteria.ClientCriteriaQuery;
@@ -33,8 +33,8 @@ public class ClientCriteriaHandler {
    private final ClientCriteriaHandlerQuery clientCriteriaHandlerQuery;
 
     @PostMapping("/pagination")
-    public ResponseEntity<List<Client>> getQueryByCriteriaPage(Pageable pageable,@RequestBody ClientCriteriaQuery clientCriteriaQuery){
-        log.debug("REST request to get PGuests by filter: {}", clientCriteriaQuery);
+    public ResponseEntity<List<Client>> getQueryClientByCriteriaPage(Pageable pageable,@RequestBody ClientCriteriaQuery clientCriteriaQuery){
+        log.debug("REST request to get Client by filter: {}", clientCriteriaQuery);
         Page<Client> page = clientCriteriaHandlerQuery.handlerQueryPag(pageable,clientCriteriaQuery);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

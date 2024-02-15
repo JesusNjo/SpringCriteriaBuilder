@@ -32,7 +32,7 @@ public class ClientCriteriaHandlerQuery {
 
     @Transactional(readOnly = true)
     public Page<Client> handlerQueryPag(Pageable page, ClientCriteriaQuery clientCriteriaQuery){
-        log.debug("{}", clientCriteriaQuery);
+        log.debug("find by query {}", clientCriteriaQuery);
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Client> cq = cb.createQuery(Client.class);
         Root<Client> clients = cq.from(Client.class);

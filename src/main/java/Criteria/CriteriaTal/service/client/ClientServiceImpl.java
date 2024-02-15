@@ -3,7 +3,7 @@ package Criteria.CriteriaTal.service.client;
 import Criteria.CriteriaTal.models.Client;
 import Criteria.CriteriaTal.models.dto.ClientDTO;
 import Criteria.CriteriaTal.models.helpers.Gender;
-import Criteria.CriteriaTal.repository.ClientRepository;
+import Criteria.CriteriaTal.repository.client.ClientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
