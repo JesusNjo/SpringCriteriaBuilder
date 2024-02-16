@@ -3,7 +3,6 @@ package Criteria.CriteriaTal.service.order;
 import Criteria.CriteriaTal.models.Client;
 import Criteria.CriteriaTal.models.Order;
 import Criteria.CriteriaTal.models.Product;
-import Criteria.CriteriaTal.models.dto.OrderDTO;
 import Criteria.CriteriaTal.repository.client.ClientRepository;
 import Criteria.CriteriaTal.repository.order.OrderRepository;
 import Criteria.CriteriaTal.repository.product.ProductRepository;
@@ -11,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 @Service("OrderServiceImpl")
 @RequiredArgsConstructor
 public class OrderServiceImpl implements IOrderService{
@@ -28,21 +30,30 @@ public class OrderServiceImpl implements IOrderService{
     }
 
     @Override
-    public void createOrder(Long clienteId,Long productId) {
+    public void createOrder(Integer quantity, Long clientId, Long productId) {
+        Client client = clientRepository.findById(clientId)
+                .orElseThrow(() -> new IllegalArgumentException("Client not found"));
 
-        Client client = clientRepository.findById(clienteId).orElse(null);
-        Product product = productRepository.findById(productId).orElse(null);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
-        Order orderCreate = Order.builder()
-                .client(client)
-                .product(product)
-                .quantity(orderRepository.count())
-                .build();
-        if(orderCreate.getClient().getId() == clienteId){
-            orderCreate.setQuantity(orderCreate.getQuantity()+1);
+        Optional<Order> existingOrder = orderRepository.findOrderByClientId(client.getId());
+
+        if (existingOrder.isPresent()) {
+            Order orderToUpdate = existingOrder.get();
+            orderToUpdate.setQuantity(orderToUpdate.getQuantity() + quantity);
+            orderRepository.save(orderToUpdate);
+        } else {
+            Order orderCreate = Order.builder()
+                    .client(client)
+                    .product(product)
+                    .quantity(quantity.longValue())
+                    .build();
+            orderRepository.save(orderCreate);
         }
-        orderRepository.save(orderCreate);
     }
+
+
 
     @Override
     public void deleteOrderById(Long id) {
@@ -51,6 +62,6 @@ public class OrderServiceImpl implements IOrderService{
 
     @Override
     public List<Order> findOrderByClientId(Long cliendId) {
-        return orderRepository.findOrderByClientIdAndProduct(cliendId);
+        return orderRepository.findOrderListByClientId(cliendId);
     }
 }

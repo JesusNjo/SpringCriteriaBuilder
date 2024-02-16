@@ -10,7 +10,7 @@ public interface IOrderService {
 
     public List<Order> getAllOrders();
     public Order findOrderById(Long id);
-    public void createOrder(Long id,Long product);
+    public void createOrder(Integer quantity,Long id,Long product);
     public void deleteOrderById(Long id);
     public List<Order> findOrderByClientId(Long id);
 }

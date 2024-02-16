@@ -1,7 +1,9 @@
 package Criteria.CriteriaTal.controller.order;
 
 import Criteria.CriteriaTal.models.Order;
+import Criteria.CriteriaTal.models.Product;
 import Criteria.CriteriaTal.service.order.IOrderService;
+import Criteria.CriteriaTal.service.product.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,16 @@ public class OrderController {
 
     @Autowired
     private IOrderService iOrderService;
+    @Autowired
+    private IProductService productService;
 
     @PostMapping
-    public String createOrder(@RequestParam Long clientId, @RequestParam Long productId){
-        iOrderService.createOrder(clientId,productId);
-        return "Orden creada.";
+    public String createOrder(@RequestParam Integer quantity,@RequestParam Long clientId, @RequestParam Long productId){
+        iOrderService.createOrder(quantity,clientId,productId);
+        Product productSearch = productService.findProductById(productId);
+
+        double amountT = quantity * productSearch.getPrice();
+        return "Orden creada. Total Amount: " + amountT;
     }
     @GetMapping
     public ResponseEntity<List<?>> findAllOrders(){
