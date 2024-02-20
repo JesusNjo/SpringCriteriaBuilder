@@ -5,6 +5,7 @@ import Criteria.CriteriaTal.models.dto.ClientDTO;
 import Criteria.CriteriaTal.models.helpers.Gender;
 import Criteria.CriteriaTal.repository.client.ClientRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

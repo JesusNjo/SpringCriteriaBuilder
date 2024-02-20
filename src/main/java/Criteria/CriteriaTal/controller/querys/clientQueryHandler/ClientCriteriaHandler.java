@@ -32,7 +32,7 @@ public class ClientCriteriaHandler {
 
    private final ClientCriteriaHandlerQuery clientCriteriaHandlerQuery;
 
-    @PostMapping("/pagination")
+    @PostMapping("/query")
     public ResponseEntity<List<Client>> getQueryClientByCriteriaPage(Pageable pageable,@RequestBody ClientCriteriaQuery clientCriteriaQuery){
         log.debug("REST request to get Client by filter: {}", clientCriteriaQuery);
         Page<Client> page = clientCriteriaHandlerQuery.handlerQueryPag(pageable,clientCriteriaQuery);

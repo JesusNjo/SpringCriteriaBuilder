@@ -25,7 +25,7 @@ public class ProductQueryHandler {
 
     private final ProductCriteriaHandlerQuery productCriteriaHandlerQuery;
 
-    @PostMapping("/pagination")
+    @PostMapping("/query")
     public ResponseEntity<List<Product>> getQueryProductByCriteriaPage(Pageable pageable,@RequestBody ProductCriteriaQuery productCriteriaQuery){
         log.debug("REST request to get Client by filter: {}", productCriteriaQuery);
         Page<Product> page = productCriteriaHandlerQuery.handler(pageable,productCriteriaQuery);

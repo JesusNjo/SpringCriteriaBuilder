@@ -6,9 +6,11 @@ import Criteria.CriteriaTal.models.dto.ClientDTO;
 import Criteria.CriteriaTal.service.client.IClientService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.engine.jdbc.Size;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController

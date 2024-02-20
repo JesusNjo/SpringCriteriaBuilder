@@ -26,7 +26,7 @@ public class OrderQueryHandler {
 
     private final OrderCriteriaHandlerQuery orderCriteriaHandlerQuery;
 
-    @PostMapping("/pagination")
+    @PostMapping("/query")
     public ResponseEntity<List<Order>> getQueryOrderByCriteriaPage(Pageable pageable,@RequestBody OrderCriteriaQuery orderCriteriaQuery){
         log.debug("REST request to get Order by filter: {}", orderCriteriaQuery);
         Page<Order> page = orderCriteriaHandlerQuery.handle(pageable,orderCriteriaQuery);

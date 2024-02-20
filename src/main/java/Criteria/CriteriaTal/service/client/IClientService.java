@@ -2,6 +2,7 @@ package Criteria.CriteriaTal.service.client;
 
 import Criteria.CriteriaTal.models.Client;
 import Criteria.CriteriaTal.models.dto.ClientDTO;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
