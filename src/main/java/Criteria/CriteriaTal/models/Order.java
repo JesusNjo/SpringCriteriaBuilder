@@ -21,11 +21,11 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private Client client;
+    private Client clientId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private Product productId;
 
     @Column(name = "quantity")
     private Long quantity;

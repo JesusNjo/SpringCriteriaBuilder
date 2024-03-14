@@ -4,6 +4,8 @@ import Criteria.CriteriaTal.models.helpers.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
@@ -23,4 +25,6 @@ public class Client {
     private String email;
     private String city;
     private Gender gender;
+    @OneToMany(mappedBy = "clientId", cascade = CascadeType.ALL)
+    List<Order> orders;
 }

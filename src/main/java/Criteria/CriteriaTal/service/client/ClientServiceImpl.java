@@ -5,13 +5,16 @@ import Criteria.CriteriaTal.models.dto.ClientDTO;
 import Criteria.CriteriaTal.models.helpers.Gender;
 import Criteria.CriteriaTal.repository.client.ClientRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("ClientServiceImpl")
 @AllArgsConstructor
+@Slf4j
 public class ClientServiceImpl implements IClientService{
 
     private final ClientRepository clientRepository;
@@ -33,6 +36,7 @@ public class ClientServiceImpl implements IClientService{
 
     @Override
     public void createClient(ClientDTO clientDTO) {
+
         Client client = Client.builder()
                 .name(clientDTO.getName())
                 .lastName(clientDTO.getLastName())
@@ -40,7 +44,13 @@ public class ClientServiceImpl implements IClientService{
                 .city(clientDTO.getCity())
                 .gender(Gender.valueOf(clientDTO.getGender()))
                 .build();
-        clientRepository.save(client);
+        clientRepository.findClientByEmail(client.getEmail()).ifPresentOrElse(s->{
+            log.error(s.getEmail() + " Already Exist");
+
+        }, () ->{
+            log.info("Inserting student "+ client);
+            clientRepository.save(client);
+        });
 
     }
 }
