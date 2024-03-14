@@ -45,8 +45,8 @@ public class OrderServiceImpl implements IOrderService{
             orderRepository.save(orderToUpdate);
         } else {
             Order orderCreate = Order.builder()
-                    .client(client)
-                    .product(product)
+                    .clientId(client)
+                    .productId(product)
                     .quantity(quantity.longValue())
                     .build();
             orderRepository.save(orderCreate);

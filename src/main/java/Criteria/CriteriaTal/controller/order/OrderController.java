@@ -29,7 +29,7 @@ public class OrderController {
         return "Orden creada. Total Amount: " + amountT;
     }
     @GetMapping
-    public ResponseEntity<List<?>> findAllOrders(){
+    public ResponseEntity<List<Order>> findAllOrders(){
         List<Order> orderList = iOrderService.getAllOrders();
         return !orderList.isEmpty()?ResponseEntity.ok(orderList):ResponseEntity.noContent().build();
     }
