@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/client")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class ClientController {
 
     private final IClientService iClientService;
@@ -31,7 +30,7 @@ public class ClientController {
         return client != null ? ResponseEntity.ok(client):ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ResponseEntity<List<Client>> getAllClients(){
         List<Client> clientList = iClientService.findAllClient();
         return !clientList.isEmpty()? ResponseEntity.ok(clientList): ResponseEntity.noContent().build();

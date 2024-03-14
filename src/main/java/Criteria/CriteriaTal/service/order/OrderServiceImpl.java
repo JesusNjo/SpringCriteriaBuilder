@@ -7,8 +7,10 @@ import Criteria.CriteriaTal.repository.client.ClientRepository;
 import Criteria.CriteriaTal.repository.order.OrderRepository;
 import Criteria.CriteriaTal.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,6 +51,8 @@ public class OrderServiceImpl implements IOrderService{
                     .productId(product)
                     .quantity(quantity.longValue())
                     .build();
+
+
             orderRepository.save(orderCreate);
         }
     }
