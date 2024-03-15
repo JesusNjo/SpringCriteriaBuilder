@@ -20,7 +20,6 @@ public class OrderController {
     private IOrderService iOrderService;
     @Autowired
     private IProductService productService;
-
     @PostMapping
     public String createOrder(@RequestParam Integer quantity,@RequestParam Long clientId, @RequestParam Long productId){
         iOrderService.createOrder(quantity,clientId,productId);
