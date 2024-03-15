@@ -25,6 +25,7 @@ public class Client {
     private String email;
     private String city;
     private Gender gender;
+
     @JsonIgnore
     @OneToMany(mappedBy = "clientId")
     List<Order> orders;
