@@ -1,6 +1,7 @@
 package Criteria.CriteriaTal.models;
 
 import Criteria.CriteriaTal.models.helpers.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
