@@ -20,5 +20,4 @@ public class ClientDTO {
     private String email;
     private String city;
     private String gender;
-    private List<String> order;
 }

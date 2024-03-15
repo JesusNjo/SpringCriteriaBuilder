@@ -39,23 +39,20 @@ public class OrderServiceImpl implements IOrderService{
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
-        Optional<Order> existingOrder = orderRepository.findOrderByClientId(client.getId());
+        Order orderCreate = Order.builder()
+                .clientId(client)
+                .productId(product)
+                .quantity(quantity.longValue())
+                .build();
 
-        if (existingOrder.isPresent()) {
-            Order orderToUpdate = existingOrder.get();
-            orderToUpdate.setQuantity(orderToUpdate.getQuantity() + quantity);
-            orderRepository.save(orderToUpdate);
-        } else {
-            Order orderCreate = Order.builder()
-                    .clientId(client)
-                    .productId(product)
-                    .quantity(quantity.longValue())
-                    .build();
+        Order savedOrder = orderRepository.save(orderCreate);
 
-
-            orderRepository.save(orderCreate);
-        }
+        List<Order> clientOrders = client.getOrders();
+        clientOrders.add(savedOrder);
+        client.setOrders(clientOrders);
+        clientRepository.save(client);
     }
+
 
 
 
