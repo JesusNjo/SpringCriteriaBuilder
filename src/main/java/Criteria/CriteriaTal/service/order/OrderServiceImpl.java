@@ -7,8 +7,10 @@ import Criteria.CriteriaTal.repository.client.ClientRepository;
 import Criteria.CriteriaTal.repository.order.OrderRepository;
 import Criteria.CriteriaTal.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -37,21 +39,20 @@ public class OrderServiceImpl implements IOrderService{
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
 
-        Optional<Order> existingOrder = orderRepository.findOrderByClientId(client.getId());
+        Order orderCreate = Order.builder()
+                .clientId(client)
+                .productId(product)
+                .quantity(quantity.longValue())
+                .build();
 
-        if (existingOrder.isPresent()) {
-            Order orderToUpdate = existingOrder.get();
-            orderToUpdate.setQuantity(orderToUpdate.getQuantity() + quantity);
-            orderRepository.save(orderToUpdate);
-        } else {
-            Order orderCreate = Order.builder()
-                    .clientId(client)
-                    .productId(product)
-                    .quantity(quantity.longValue())
-                    .build();
-            orderRepository.save(orderCreate);
-        }
+        Order savedOrder = orderRepository.save(orderCreate);
+
+        List<Order> clientOrders = client.getOrders();
+        clientOrders.add(savedOrder);
+        client.setOrders(clientOrders);
+        clientRepository.save(client);
     }
+
 
 
 
