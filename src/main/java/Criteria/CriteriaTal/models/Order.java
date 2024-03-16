@@ -19,7 +19,6 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client clientId;
@@ -30,4 +29,6 @@ public class Order {
 
     @Column(name = "quantity")
     private Long quantity;
+    @Column(name = "total_amount")
+    private Double totalAmount;
 }

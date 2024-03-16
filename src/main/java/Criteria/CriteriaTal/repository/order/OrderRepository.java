@@ -11,12 +11,14 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
-    @Query("select o from Order o " +
-            "left join fetch o.clientId c " +
+
+    @Query("SELECT o FROM Order o " +
+            "LEFT JOIN FETCH o.clientId c " +
             "WHERE c.id = ?1")
     List<Order> findOrderListByClientId(Long clientId);
 
-   @Query("select o from Order o "+
+
+    @Query("select o from Order o "+
           "left join fetch o.clientId c "+
            "WHERE c.id = ?1")
     Optional<Order> findOrderByClientId(Long id);
