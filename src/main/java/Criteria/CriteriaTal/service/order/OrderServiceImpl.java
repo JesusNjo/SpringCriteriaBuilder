@@ -43,6 +43,7 @@ public class OrderServiceImpl implements IOrderService{
                 .clientId(client)
                 .productId(product)
                 .quantity(quantity.longValue())
+                .totalAmount(quantity * product.getPrice())
                 .build();
 
         Order savedOrder = orderRepository.save(orderCreate);

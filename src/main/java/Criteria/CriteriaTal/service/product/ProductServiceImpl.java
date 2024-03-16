@@ -28,6 +28,7 @@ public class ProductServiceImpl implements IProductService{
     public void createProduct(ProductDTO product) {
         Product productN = Product.builder().
                 name(product.getName())
+                .description(product.getDescription())
                 .price(product.getPrice())
                 .build();
         productRepository.save(productN);
@@ -36,6 +37,11 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public void deleteProductById(Long id) {
         productRepository.delete(findProductById(id));
+    }
+
+    @Override
+    public List<Product> findProductsByClientId(Long clientId) {
+        return productRepository.findProductByClientId(clientId);
     }
 
 }
